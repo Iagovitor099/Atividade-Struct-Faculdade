@@ -16,10 +16,10 @@ typedef struct{
 
 
 void Menu(){
-    printf("Menu\n1-Exibir\n2-Cadastrar\n3-Buscar\n4-Sair\n\nEscolha: ");
+    printf("Menu\n1-Exibir\n2-Cadastrar\n3-Buscar\n4-Modificar\n5-Sair\n\nEscolha: ");
 }
 
-
+//CRUD ALUNOS
 void Cadastrar(tAluno Alunos[], int *PonteiroNumeroAlunos){
 
     if(*PonteiroNumeroAlunos >= 50)
@@ -60,11 +60,11 @@ void Cadastrar(tAluno Alunos[], int *PonteiroNumeroAlunos){
 
                 if(Alunos[*PonteiroNumeroAlunos].media >= 7)
                 {
-                    printf("Aluno Aprovado! %.2f", Alunos[*PonteiroNumeroAlunos].media);
+                    printf("Aluno Aprovado!\nMédia: %.2f\n", Alunos[*PonteiroNumeroAlunos].media);
                     Alunos[*PonteiroNumeroAlunos].Situacao = 0;
                 }else
                 {
-                    printf("Aluno Reprovado! %.2f", Alunos[*PonteiroNumeroAlunos].media);
+                    printf("Aluno Reprovado!\nMédia: %.2f\n", Alunos[*PonteiroNumeroAlunos].media);
                     Alunos[*PonteiroNumeroAlunos].Situacao = 1;
                 }
                 *PonteiroNumeroAlunos = *PonteiroNumeroAlunos + 1;
@@ -73,7 +73,6 @@ void Cadastrar(tAluno Alunos[], int *PonteiroNumeroAlunos){
         }
     }
 }
-
 
 void Exibir(tAluno Alunos[], int *PonteiroNumeroAlunos){
 
@@ -97,14 +96,21 @@ void Buscar(tAluno Alunos[] ,int *PonteiroParaAlunos){
     printf("Digite o número da matricula: ");
     scanf("%lf", &matricula);
 
+    system("clear");
     for(int i=0; i < *PonteiroParaAlunos; i++){
         if(Alunos[i].matricula == matricula){
-            printf("\nNome do aluno: %s", Alunos[i].nome);
+            printf("\n\nNome do aluno: %s", Alunos[i].nome);
             printf("\nMatricula: %.0lf",Alunos[i].matricula);
             printf("\nNota 1: %.1f", Alunos[i].nota1);
             printf("\nNota 2: %.1f", Alunos[i].nota2);
             printf("\nNota 3: %.1f", Alunos[i].nota3);
             printf("\nMédia Final: %.1f", Alunos[i].media);
+            if(Alunos[i].Situacao == APROVADO){
+                printf("\nSituação: Aprovado");
+            }else
+            {
+                printf("\nSituação: Reprovado");
+            }
             achou = 1;
         }
     }
@@ -113,6 +119,39 @@ void Buscar(tAluno Alunos[] ,int *PonteiroParaAlunos){
     }
 
 }
+
+void Modificar(tAluno Alunos[], int *PonteiroParaAlunos){
+
+    int achou =0;
+    double matricula;
+    printf("\nNumero de matricula: ");
+    scanf("%lf",&matricula);
+    for(int i = 0; i< *PonteiroParaAlunos; i++)
+    {
+        if(Alunos[i].matricula == matricula){
+            printf("\n------Modificando %s-------\n", Alunos[i].nome);
+            printf("\nNovo nome: ");
+            scanf(" %s",Alunos[i].nome);
+            printf("Nova Nota 1: ");
+            scanf("%f", &Alunos[i].nota1);
+            printf("Nova Nota 2: ");
+            scanf("%f", &Alunos[i].nota2);
+            printf("Nova Nota 3: ");
+            scanf("%f", &Alunos[i].nota3);
+            Alunos[i].media = (Alunos[i].nota1 + Alunos[i].nota2 + Alunos[i].nota3)/3;
+            printf("Nova média: %.1f", Alunos[i].media);
+
+            achou =1;
+        }
+    }
+    if(achou == 0){
+        printf("\nAluno não encontrado!!");
+    }
+
+
+}
+
+
 
 int Resposta(int *ptrResposta){
     int resposta;
@@ -150,6 +189,10 @@ int main()
                 Resposta(ptrParaResposta);
                 break;
             case 4:
+                Modificar(Alunos,ptrNumeroAlunos);
+                Resposta(ptrParaResposta);
+                break;
+            case 5:
                 resposta = 0;
                 break;
             default:
