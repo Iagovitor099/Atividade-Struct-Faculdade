@@ -41,9 +41,9 @@ void Cadastrar(tAluno Alunos[], int *PonteiroNumeroAlunos){
             for(int i =0; i< resposta; i++)
             {
                 printf("\nNome do aluno (%d): ", i+1);
-                scanf("%s", Alunos[*PonteiroNumeroAlunos].nome);
+                scanf("%s", Alunos[*PonteiroNumeroAlunos].nome); //Add apenas o primeiro nome Ex: Iago, não lê espaço, Ex: Iago Vitor
 
-                //fgets(Alunos[*PonteiroNumeroAlunos].nome, 50, stdin);  EU SEI PQ NÃO TA FUNCIONANDO DESSE JEITO, POR ALGUM MOTIVO ELE IDENTIFICA LIXO NA MEMORIA, JA TENTEI FFLUSH() MAS NÃO FUCNIONA
+                //fgets(Alunos[*PonteiroNumeroAlunos].nome, 50, stdin);  EU NÃO SEI PQ NÃO TA FUNCIONANDO DESSE JEITO, POR ALGUM MOTIVO ELE IDENTIFICA LIXO NA MEMORIA, JA TENTEI FFLUSH() MAS NÃO FUCNIONA
 
                 printf("Matricula do aluno (%d): ",i+1);
                 scanf("%lf", &Alunos[*PonteiroNumeroAlunos].matricula);
